@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    //基本跟一般函式無異，只是把函式帶到變數中，變數即為函式名稱
+    let say01 = function() {
+        console.log('Hello World!');
+    }
+    say01();
+
+
+    //帶參數
+    let say02 = function(name) {
+        console.log('Hello, ' + name);
+    }
+    say02('Alex');
+
+
+    //有回傳值
+    let say03 = function(name) {
+        return 'Hello, ' + name;
+    }
+    console.log( say03('Bill') );
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

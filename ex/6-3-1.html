@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //i 到 4 的時候，跳出迴圈
+        for(let i = 1; i <= 9; i++) {
+            if(i == 4){
+                break;
+            }
+            console.log(`i = ${i}`);
+        }
+
+        /**
+         * j 為 4 的時候，只跳出內部迴圈，
+         * 但外部迴圈依然會繼續執行，
+         * 只有內部迴圈的 j 走到 4 時候，
+         * 自行跳出
+         */
+        for(let i = 1; i <= 9; i++) {
+            for(let j = 1; j <= 9; j++){
+                if(j == 4){
+                    break;
+                }
+                console.log(`i = ${i}, j = ${j}`);
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

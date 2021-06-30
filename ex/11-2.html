@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    let date = new Date();
+
+    let year, month, day, hour, minute, second;
+
+    // 2021，西元年
+    year = date.getFullYear() 
+
+    // 月份，5 月時執行會出現 4，比正常值少 1，記得加 1
+    if( (date.getMonth() + 1) < 10 ) {
+        month = '0' + (date.getMonth() + 1);
+    } else { 
+        month = (date.getMonth() + 1);
+    };
+
+    // 25，當月 25 號
+    if( date.getDate() < 10 ) {
+        day = '0' + date.getDate();
+    } else { 
+        day = date.getDate();
+    };
+
+    // 幾時，例如 14 時
+    if( date.getHours() < 10) {
+        hour = '0' + date.getHours();
+    } else {
+        hour = date.getHours();
+    };
+
+    // 幾分，例如 58 分
+    if( date.getMinutes() < 10) { 
+        minute = '0' + date.getMinutes();
+    } else { 
+        minute = date.getMinutes();
+    };
+
+    //幾秒，例如 53 秒
+    if( date.getSeconds() < 10) {
+        second = '0' + date.getSeconds();
+    } else {
+        second = date.getSeconds();
+    };
+
+    console.log(`${year}-${month}-${day} ${hour}:${minute}:${second}`);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

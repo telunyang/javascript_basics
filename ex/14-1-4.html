@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="myList">
+        <li>Item 01</li>
+        <li>Item 02</li>
+        <li>Item 03</li>
+    </ul>
+    
+    <script>
+    // 取得容器
+    let myList  = document.querySelector('ul#myList');
+    
+    // 取得 "<li>Item 02</li>" 的元素
+    let oldNode = document.querySelectorAll('li')[1];
+    
+    // 建立 li 元素節點
+    let newNode = document.createElement('li');
+    
+    // 建立 textNode 文字節點
+    let textNode = document.createTextNode("Hello world!");
+    newNode.appendChild(textNode);
+    
+    // 將原有的 oldNode 替換成新節點 newNode
+    myList.replaceChild(newNode, oldNode);
+    </script>
+</body>
+</html>

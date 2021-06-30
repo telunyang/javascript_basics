@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" style="width: 200px; height: 100x;">按下後改變文字</button>
+    <hr>
+    <div style="width: 150px; height: 100px; border: 1px solid;" >請用滑鼠移過此元素</div>
+    <hr>
+    <img class="puppy" src="https://i.pinimg.com/600x315/8d/4c/82/8d4c82be4f898f25a465919698566b57.jpg" />
+
+    <script>
+    //對 button#btn 註冊 click 事件
+    document.querySelector('button#btn').addEventListener('click', function(event){
+        /**
+         * event.target 等同於 this
+         * 都是指事件監聽的元素
+         * 例如上方的 document.querySelector('button#btn')
+         */
+
+        //修改文字
+        event.target.innerText = '已改變';
+    });
+
+    //對 div 註冊兩個事件，分別是滑鼠移入和移出
+    let div = document.querySelector('div');
+    div.addEventListener('mousemove', function(event){
+        this.style.backgroundColor = '#33ffff';
+    });
+    div.addEventListener('mouseout', function(event){
+        this.style.backgroundColor = '#ff0000';
+    });
+
+    //對 img.puppy 註冊滑鼠移入事件
+    document.querySelector('img.puppy').addEventListener('mousemove', function(event){
+        this.setAttribute(
+            "src", 
+            "https://ballparkdigest.com/wp-content/uploads/2020/02/New-Trenton-Thunder-bat-dog-300x300.jpg"
+        );
+    });
+    </script>
+</body>
+</html>

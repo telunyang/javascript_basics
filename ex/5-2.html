@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p class="myClass">問世間，</p>
+    <p class="myClass">情是何物，</p>
+    <p class="myClass">直教生死相許。</p>
+
+    <script>
+        let p = document.querySelectorAll('p');
+
+        //可以使用類似陣列的操作方式，提供索引值來存取
+        p[0].style.backgroundColor = '#ff0000';
+        p[1].innerHTML = '<span style="color: #00ff00">...情是何物...</span>';
+        p[2].style.lineHeight = '24px';
+        p[2].style.backgroundColor = '#0000ff';
+        p[2].style.color = '#ffffff';
+    </script>
+</body>
+</html>

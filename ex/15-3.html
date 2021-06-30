@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="myForm" method="post" action="" onsubmit="return checkForm();">
+        <lable>您的姓名：</lable>
+        <input type="text" name="username" value="" />
+        <br />
+        <lable>您的 E-mail：</lable>
+        <input type="text" name="email" value="" />
+        <br />
+        <input type="submit" id="btn" value="檢查" />
+    </form>
+
+    <script>
+    //給 onsubmit 屬性用的驗證函式
+    function checkForm() {
+        /**
+         * myForm 當中，input 元素的 name 屬性之值為 username，
+         * 在此判斷是否小於 2 個字，是的話，則跳出警示訊息。
+         */
+        if (document.querySelector('input[name="username"]').value.length < 2) {
+            alert('請填寫正確姓名');
+            return false;
+        }
+
+        /**
+         * 若是 validateEmail(email) 回傳結果為 false，
+         * 則透過 ! 來讓 false 變成 true，
+         * 使 if 判斷結果成立，跳出警示訊息。
+         */
+        if (!validateEmail(document.querySelector('input[name="email"]').value)) {
+            alert('E-mail 格式不正確');
+            return false;
+        }
+
+        //回傳 true，讓 onsubmit 事件可以順利觸發
+        return true;
+    }
+
+    //驗證 E-mail
+    function validateEmail(email) {
+        var re = /[a-zA-Z0-9.-_]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+/;
+        return re.test(email);
+    }
+    </script>
+</body>
+</html>

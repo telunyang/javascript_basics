@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         * 確認對話方塊 window.confirm()
+         * 因為是 window 的方法，所以可以直接寫 confirm()
+         * 按下 確定 會回傳 true
+         * 按下 取消 會回傳 false
+         */ 
+        if( confirm('請問您確定要送出資料嗎?') ){
+            /**
+             * 跳出警示對話方塊 window.alert()
+             * 因為是 window 的方法，所以可以直接寫 alert()
+             */
+            alert('已送出'); 
+        } else {
+            alert('已取消');
+        }
+
+        /**
+         * 提示對話方塊 window.prompt()
+         * 因為是 window 的方法，所以可以直接寫 prompt()
+         * 會提示使用者輸入資料，並將資料回傳
+         * 如果沒輸入，會回傳 null
+         */ 
+        let name = prompt("請輸入您的稱呼:");
+        alert(`您的稱呼: ${name}`);
+        console.log(`您的稱呼: ${name}`);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

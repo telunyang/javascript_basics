@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn01">按鈕01</button>
+    <button id="btn02" name="btn02">按鈕02</button>
+    <button id="btn03" onclick="javascript: alert('btn03');">按鈕03</button>
+    
+    <script>
+    //取得第一個按鈕元素，並設定屬性
+    let btn01 = document.querySelector("button#btn01");
+    btn01.setAttribute("name", "btn01"); //設定 name 屬性
+    btn01.setAttribute("disabled", ""); //設定 disabled 屬性
+
+    //取得第二個按鈕元素，並取得屬性值
+    let btn02 = document.querySelector("button#btn02");
+    let strName = btn02.getAttribute("name");
+    document.write(strName);
+
+    //取得第三個按鈕，刪除 onclick 屬性
+    let btn03 = document.querySelector("button#btn03");
+    btn03.removeAttribute("onclick");
+    </script>
+</body>
+</html>

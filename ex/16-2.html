@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="url" placeholder="請輸入LINE官方貼圖" value="" style="width: 250px;">
+    <button id="btn_request">取得LINE官方貼圖</button>
+    <ul id="myList"></ul>
+
+    <script>
+    //取得 JSON 字串
+    document.querySelector('button#btn_request').addEventListener('click', function(event){
+        //取得 url
+        let url = document.querySelector("input#url").value;
+        
+        //如果 url 為空，則不往下執行
+        if(url === ''){
+            alert(`請輸入LINE官方貼圖`);
+            return false;
+        }
+
+        fetch('http://darreninfo.cc:5003/linesticker?url=' + url, {
+            //RESTful 方法，常見的有 GET, POST, PUT, DELETE
+            method: 'GET', 
+            //設定標頭: 指明使用者代理為桌面瀏覽器
+            headers: { 
+                'user-agent': 'Mozilla/4.0 MDN Example'
+            }
+            //傳遞資料的方法若為 POST，需要先設定成物件({…})，加上 body，
+            //最後轉成透過 JSON.stringify() 將物件字串化，才能正確執行
+            //body: JSON.stringify({})
+        })
+        .then(function(response) {
+            /** 
+            * 回應的結構列表:
+            * response.json() : JSON 物件
+            * response.text() : 純文字
+            * response.blob() : 二進制檔案的內文，通常用在圖片的 base64 編碼
+            */
+            return response.json();
+        })
+        .then((obj) => {
+            //取得 ul
+            let ul = document.querySelector('ul#myList');
+
+            //回傳成功，則顯示貼圖在網頁上
+            if (obj['success']){
+                //將 objJson['results'] 裡面的結果，放置到
+                for(let o of obj["results"]){
+                    //新增 li 元素，放置 img、a 等元素
+                    let li = document.createElement("li");
+                    
+                    //新增 img 元素，並指定 src 的值為貼圖連結
+                    let img = document.createElement("img");
+                    img.src = o["staticUrl"];
+                    img.style = 'width: 200px;'
+
+                    //新增 a 元素，並指定 href 為貼圖連結，同時指定 target="_blank"
+                    let a = document.createElement("a");
+                    a.href = o["staticUrl"];
+                    a.target = "_blank";
+
+                    //新增放到 a 元素中的內文 innerText
+                    let textNode = document.createTextNode(o["id"]);
+                    a.appendChild(textNode);
+
+                    //將 img 與 a 分別放到 li 當中
+                    li.appendChild(img);
+                    li.appendChild(a);
+
+                    //將 li 放到 ul 當中
+                    ul.appendChild(li);
+                }
+            } else {
+                alert('資料傳遞失敗');
+            }
+        })
+        .catch(function(err){
+            alert(err);
+        });
+    });
+    </script>
+</body>
+</html>

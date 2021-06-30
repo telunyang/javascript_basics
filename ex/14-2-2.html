@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="txt" value="" />
+    
+    <script>
+    //取得文字欄位的元素，並設定自訂屬性
+    let txt = document.querySelector("input#txt");
+    txt.setAttribute("name", "txt");
+    txt.setAttribute("value", "1234");
+    txt.setAttribute("data-price", "10000");
+    txt.setAttribute("data-title", "文字欄位");
+
+    //輸出自訂屬性到網頁上
+    document.write("<hr />");
+    document.write( txt.getAttribute('data-title') + "<br />" );
+    document.write( txt.getAttribute('data-price') + "<br />" );
+    </script>
+</body>
+</html>

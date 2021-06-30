@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, thead, th, tbody, tr, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn_request">取得綠色餐廳列表</button>
+    <table>
+        <thead>
+            <tr>
+                <th>_id</th>
+                <th>餐廳名稱</th>
+                <th>餐館電話</th>
+                <th>餐館地址</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+    document.querySelector('button#btn_request').addEventListener('click', function(event){
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','https://data.taipei/api/v1/dataset/d706f428-b2c7-4591-9ebf-9f5cd7408f47?scope=resourceAquire');
+        xhr.send();
+        xhr.onloadstart = function(){ console.log('連線開始'); }
+        xhr.onload = function(){
+            console.log('連線中')
+            let obj = JSON.parse(this.responseText);
+            let tbody = document.querySelector('table > tbody');
+            if (obj['result']['count'] > 0){
+                for(let o of obj['result']['results']){
+                    let tr = document.createElement("tr");
+                    tr.innerHTML = `<td>${o['_id']}</td>
+                                    <td>${o['餐廳名稱']}</td>
+                                    <td>${o['餐館電話']}</td>
+                                    <td>${o['餐館地址']}</td>`;
+                    tbody.appendChild(tr);
+                }
+            }
+        }
+        xhr.onloadend = function(){ console.log('連線結束'); }
+    });
+    </script>
+</body>
+</html>

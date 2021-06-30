@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" style="width: 100px; height: 50px;">連點兩下: 0</button>
+
+    <script>
+    //計數用的變數
+    let count = 0;
+    let width = 100;
+    let height = 50;
+    
+    //註冊雙擊事件，每點兩下，按鈕會慢慢變大
+    document.querySelector('button#btn').addEventListener('dblclick', function(){
+        count += 1; //等於 count++
+        width += 30;
+        height += 30;
+        this.innerText = '連點兩下: ' + count;
+        this.style.width = width + 'px';
+        this.style.height = height + 'px';
+    });
+    </script>
+</body>
+</html>

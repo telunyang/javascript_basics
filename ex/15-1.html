@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // re = Regular Expression
+
+    /**
+     * re.test()
+     * 測試字串是否配對，若是，則回傳 true，反之，則回傳 false
+     */
+    let str01 = 'cccA0001';
+    let re01 = /A[0-9]+/;
+    if( re01.test(str01) ){
+        console.log(`re.test(str) 回傳結果: true`);
+    } else {
+        console.log(`re.test(str) 回傳結果: false`);
+    }
+
+    /**
+     * str.match(re)
+     * 配對成功，結果以陣列(Array)形式回傳，反之則回傳 null
+     */
+    let str02 = '1992, 2019, 1789, 1776, 1024, 3000, 4096, 8192';
+    let re02 = /\d{4}/g;
+    let match02 = null;
+    if( (match02 = str02.match(re02)) != null){
+        console.log(`str02.match(re02) 的結果是否為 Array? ${Array.isArray(match02)}`);
+        console.log(match02);
+        for(let num of match02){
+            console.log(num);
+        }
+    } else {
+        console.log(`str02.match(re02) 的結果為 null`);
+    }
+
+    /**
+     * re03.exec(str03)
+     * 透過迭代方式找出配對的結果，
+     * 成功就透過迴圈(例如 for 或 while)各別讀取，
+     * 失敗就回傳 null，
+     * 
+     * 格式範例為:
+     * [
+     *     "A0001", 
+     *     index: 0, 
+     *     input: "A0001, B0978, X9487, Y8787, Z5432", 
+     *     groups: undefined
+     * ]
+
+        */
+    let str03 = `A0001, B0978, X9487, Y8787, Z5432`;
+    let re03 = /[A-Z][0-9]+/g;
+    let match03 = null;
+    while( (match03 = re03.exec(str03)) !== null ){
+        console.log(match03);
+    }
+
+    /**
+     * re04.exec(str04)
+     * 
+     * 與 re03.exec(str03) 相似，
+     * 唯一的差別，在於 re04 當中有定義群組(group)，
+     * 通常用來取得字串當中特定的範圍的文字。
+     * 
+     * 格式範例為:
+     * [
+     *     "https://stickershop.line-scdn.net/stickershop/v1/sticker/384169612/iPhone/sticker_animation@2x.png", 
+     *     "384169612", 
+     *     index: 110, 
+     *     input: "↵    https://stickershop.line-scdn.net/stickershop…sticker/384169603/iPhone/sticker_animation@2x.png", 
+     *     groups: undefined
+     * ]
+     */ 
+    let str04 = `background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800562/android/sticker.png;compress=true);
+background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800558/android/sticker.png;compress=true);
+background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800559/android/sticker.png;compress=true);`;
+    let re04 = /https?:\/\/stickershop\.line-scdn\.net\/stickershop\/v1\/sticker\/([0-9]+)\/android\/sticker\.png/g
+    let match04 = null;
+    while( (match04 = re04.exec(str04)) !== null ){
+        console.log(`圖片網址為: ${match04[0]}`);
+        console.log(`圖片名稱為: ${match04[1]}`);
+    }
+    </script>    
+</body>
+</html>

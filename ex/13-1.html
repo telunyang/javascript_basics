@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" 
+        style="width: 300px; height: 100px; background-color: #9999ff;" 
+        onmousemove="move()" 
+        onmouseout="out()">請用滑鼠移過此元素</div>
+
+    <script>
+    //onmousemove 事件所使用的函式
+    function move(){
+        document.querySelector("div#box").style.backgroundColor = '#33ffff';
+    }
+
+    //onmouseout 事件所使用的函式
+    function out(){
+        document.querySelector("div#box").style.backgroundColor = '#ff0000';
+    }
+    </script>
+
+</body>
+</html>

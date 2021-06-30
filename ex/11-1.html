@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //宣告 Date 物件：
+        let date = new Date();
+        
+        //字串變數，預設空值
+        let strTime = '';
+    
+        //串接時間
+        strTime += date.getFullYear() // 2021，西元年
+        strTime += date.getMonth() + 1 // 月份，5 月時執行會出現 4，記得加 1
+        strTime += date.getDate() // 26，當月26 號
+        strTime += date.getHours(); // 幾時，例如 14 時
+        strTime += date.getMinutes(); // 幾分，例如 58 分
+        strTime += date.getSeconds(); //幾秒，例如 53 秒
+    
+        //輸出結果
+        console.log(strTime);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

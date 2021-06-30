@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="visit();">前往 LINE 官方貼圖網站</button>
+    
+    <script>
+    /**
+     * 對 button 按鈕註冊 click 事件
+     * 觸發時所執行的下面定義的 function
+     */
+    function visit(){
+        if( confirm('您確定要前往 LINE 官方貼圖網站?') ){
+            //使用 window.location.href，可以要求瀏覽器連結到指定頁面
+            window.location.href = 'https://store.line.me/stickershop/home/general/zh-Hant';
+        }
+    }
+    </script>
+</body>
+</html>

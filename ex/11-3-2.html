@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="startCount()" id="btn_start">開始累加</button>
+    <input type="text" id="txt" value="">
+    <button onclick="stopCount()" id="btn_end">結束累加</button>
+
+    <script>
+    //累加數字的變數
+    let countNum = 0;
+
+    //作為 clearInterval() 用的變數
+    let t;
+    
+    //累加用的函式
+    function count() {
+        //將當前的 count 值，放到 id=txt 的元素 value 屬性當中
+        document.querySelector("input#txt").value = countNum;
+
+        //進行數字的累加
+        countNum = countNum + 1;
+    }
+    
+    //開始累加
+    function startCount() {
+        //週期性在指定毫秒後，進行累加
+        t = setInterval(function(){ count() }, 1000);
+
+        //將開始按鈕增加 disabled 屬性
+        document.querySelector("button#btn_start").setAttribute("disabled", "");
+        
+        //將結束鈕按移除 disabled 屬性
+        document.querySelector("button#btn_end").removeAttribute("disabled");
+    }
+    
+    //結束累加
+    function stopCount() {
+        //結束 setInterval
+        clearInterval(t);
+
+        //將開始鈕按移除 disabled 屬性
+        document.querySelector("button#btn_start").removeAttribute("disabled");
+
+        //將結束按鈕增加 disabled 屬性
+        document.querySelector("button#btn_end").setAttribute("disabled", "");
+    }
+    </script>    
+</body>
+</html>

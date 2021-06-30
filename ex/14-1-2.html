@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="myList">
+        <li>Item 01</li>
+        <li>Item 02</li>
+        <li>Item 03</li>
+    </ul>
+    
+    <script>
+    // 取得容器
+    let myList = document.querySelector('ul#myList');
+    
+    // 建立新的 <li> 元素
+    let newNode = document.createElement('li');
+    
+    // 建立 textNode 文字節點
+    let textNode = document.createTextNode("Hello world!");
+    
+    // 透過 appendChild 將 textNode 加入至 newNode
+    newNode.appendChild(textNode);
+    
+    // 透過 appendChild 將 newList 加入至 myList
+    myList.appendChild(newNode);
+    </script>
+</body>
+</html>

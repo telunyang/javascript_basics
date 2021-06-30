@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    //三秒後跳出訊息 Hello World
+    setTimeout( function () { 
+        alert('Hello World'); 
+    }, 3000 );
+
+
+    
+    //自訂函式後，使用 setTimeout 來調用自訂函式
+    function getMessage01(){
+        alert('Good job!');
+    }
+
+    //十秒後跳出訊息 Good job!
+    setTimeout(getMessage01, 10000);
+
+    
+
+    //也可以自帶參數
+    function getMessage02(greeting, name){
+        alert(`${greeting}, ${name}`);
+    }
+    setTimeout(getMessage02, 18000, 'Hi', 'Darren');
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
