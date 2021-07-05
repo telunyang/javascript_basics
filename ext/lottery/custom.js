@@ -14,14 +14,11 @@ function getRandom(x) {
     return Math.floor(Math.random() * x) + 1;
 }
 
-//放置第一區 6 個號碼的陣列變數
-let arr = [];
-
-//放置第二區 1 個號碼的數值變數
-let n = 0;
-
 //產生威力彩號碼
 function getPowerNum() {
+    //放置第一區 6 個號碼的陣列變數
+    let arr = [];
+
     //一注威力彩號碼有 6 個所以我們讓迴圈跑六次
     for (i = 1; i <= 6; i++) {
         /** 
@@ -61,11 +58,8 @@ function getPowerNum() {
         return a - b;
     });
 
-    //第二區號碼
-    n = getRandom(8);
-
-    //因為威力彩有分兩區，第二區為 01 ~ 08 隨機一數字，所以我們在回傳時加上。
-    return `第一區號碼為： ${arr.join(",")}，第二區號碼為： ${n}`;
+    //回傳第一區 6 個號碼
+    return arr;
 }
 
 /**
@@ -73,4 +67,18 @@ function getPowerNum() {
  *   第一區號碼為： 8,9,22,25,35,37，第二區號碼為： 7
  *   第一區號碼為： 3,14,17,18,31,36，第二區號碼為： 4
  */
-alert(getPowerNum());
+
+//取得第一區的號碼陣列，陣列長度為 6 (代表 6 個號碼)
+let arr = getPowerNum();
+
+/**
+ * 使用「,」將第一區號碼從陣列進行合併，轉成字串，
+ * 例如 [2,4,6,8,10]，透過 arr.join(",")，
+ * 就會變成字串型態的 "2,4,6,8,10"，
+ */
+let num01 = arr.join(",");
+
+//取得第二區號碼
+let num02 = getRandom(8);
+
+console.log(`第一區號碼為 ${num01}，第二區號碼為: ${num02}`);
