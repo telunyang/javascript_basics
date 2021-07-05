@@ -9,7 +9,7 @@
 <body>
     <script>
     //以 function 這個關鍵字的來建立類別（class）
-    var Person = function (name, gender, age) {
+    let Person = function (name, gender, age) {
         //以 this 關鍵字作為實體本身
         this.name = name;
         this.gender = gender;
@@ -20,8 +20,8 @@
     };
         
     //用 new 關鍵字來實體化（變成物件）
-    var person1 = new Person("Alice", "女", 22);
-    var person2 = new Person("Bill", "男", 18);
+    let person1 = new Person("Alice", "女", 22);
+    let person2 = new Person("Bill", "男", 18);
 
     //輸出兩個 person 的 name
     console.log( person1.name );
@@ -32,12 +32,6 @@
 
     //取得 person2 的 age 值
     console.log( person2.getAge() );
-
-    // "Hello, I'm Alex"
-    console.log( person1.sayHello() );
-    
-    // "Hello, I'm Bob"
-    console.log( person2.sayHello() ); 
     </script>
 </body>
 </html>

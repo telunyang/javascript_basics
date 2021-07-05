@@ -1,62 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-    //初始化陣列
-    let listOfName = ['Alex', 'Bill', 'Cook', 'Darren'];
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 
-    //一、設定（新增）元素：
-    listOfName[4] = 'Ellen'; // 指定索引位置來新增元素
-    console.log(listOfName);
-    //輸出 [ 'Alex', 'Bill', 'Cook', 'Darren', 'Ellen'] 
+<script>
+//初始化陣列
+let listOfName = ['Alex', 'Bill', 'Cook', 'Darren'];
 
-
-    //二、使用 push()，將資料加到陣列尾端：
-    listOfName.push('Fox');
-    listOfName.push('Gina');
-    console.log(listOfName); 
-    //輸出 ["Alex", "Bill", "Cook", "Darren", "Ellen", "Fox", "Gina"]
+//一、設定（新增）元素：
+listOfName[4] = 'Ellen'; // 指定索引位置來新增元素
+console.log(listOfName);
+//輸出 [ 'Alex', 'Bill', 'Cook', 'Darren', 'Ellen'] 
 
 
-    //三、修改元素：
-    listOfName[0] = 'Allen';
-    listOfName[2] = 'Carl';
-    console.log(listOfName[0]); // 輸出 Allen
-    console.log(listOfName[2]); // 輸出 Carl
-    console.log(listOfName); 
-    //輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen", "Fox", "Gina"]
+//二、使用 .push()，將資料加到陣列尾端，資料可以一個以上：
+listOfName.push('Fox', 'Gina');
+console.log(listOfName); 
+//輸出 ["Alex", "Bill", "Cook", "Darren", "Ellen", "Fox", "Gina"]
 
 
-    //四、刪除尾端元素，使用 .pop()，將會刪除陣列尾端的資料：
-    listOfName.pop();
-    console.log(listOfName); 
-    // 輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen", "Fox"]
-
-    listOfName.pop();
-    console.log(listOfName); 
-    // 輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen"]
-
-
-    //五、刪除尾端元素，並取出放置在新的變數中
-    let name = listOfName.pop();
-    console.log(name); // 輸出 Ellen
+//三、修改元素：
+listOfName[0] = 'Allen';
+listOfName[2] = 'Carl';
+console.log(listOfName[0]); // 輸出 Allen
+console.log(listOfName[2]); // 輸出 Carl
+console.log(listOfName); 
+//輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen", "Fox", "Gina"]
 
 
-    //六、刪除陣列第一個元素，使用 shift()：
-    listOfName.shift();
-    console.log(listOfName); 
-    // 輸出 ["Bill", "Carl", "Darren"]
+//四、刪除尾端元素，使用 .pop()，將會刪除陣列尾端的資料：
+listOfName.pop();
+console.log(listOfName); 
+// 輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen", "Fox"]
 
-    
-    //七、有時候從尾端刪除的陣列資料，需要放在陣列前端，使用 unshift()：
-    name = listOfName.pop(); // 從陣列尾端刪除 Darren
-    listOfName.unshift(name); // 將刪除的陣列尾端資料放到陣列前端
-    console.log(listOfName); // 輸出 ["Darren", "Bill", "Carl"]
-    </script>
+
+//五、刪除尾端元素，並取出放置在新的變數中
+let name = listOfName.pop();
+console.log(name); // 輸出 Fox
+console.log(listOfName); 
+// 輸出 ["Allen", "Bill", "Carl", "Darren", "Ellen"]
+
+
+//六、刪除陣列第一個元素，使用 .shift()：
+listOfName.shift();
+console.log(listOfName); 
+// 輸出 ["Bill", "Carl", "Darren", "Ellen"]
+
+
+//七、刪除陣列第一個元素，並取出放置在新的變數中
+name = listOfName.shift();
+console.log(name); //輸出 Bill
+console.log(listOfName); 
+// 輸出 ["Carl", "Darren", "Ellen"]
+
+
+//八、有時候從尾端刪除的陣列資料，需要放在陣列前端，使用 .unshift()：
+name = listOfName.pop(); // 從陣列尾端刪除 Ellen
+listOfName.unshift(name); // 將刪除的陣列尾端資料放到陣列前端
+console.log(listOfName); // 輸出 ["Ellen", "Carl", "Darren"]
+
+
+/**
+ * 【進階操作】
+ * 九、從陣列中間新增一個值 
+ * .splice(指定索引位置, 刪除資料數量, 寫入資料[, 資料2, 資料3, ...])
+ * 
+ * 參考資料:
+ * https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+ */
+
+//指定索引為 0 的地方，在刪除資料數量為 0 的情況下(不刪除資料)，新增 "Alex"
+listOfName.splice(0, 0, "Alex");
+console.log(listOfName); // 輸出 ["Alex", "Ellen", "Carl", "Darren"]
+
+
+//指定索引為 1 的地方，刪除一個資料，同時在該索引新增 "Bill"，並將刪除資料以陣列型態回傳
+let arrRemoveValue = listOfName.splice(1, 2, "Bill", "Cook");
+console.log(arrRemoveValue); // 輸出 ["Ellen", "Carl"]
+console.log(listOfName); // 輸出 ["Alex", "Bill", "Cook", "Darren"]
+</script>
+
 </head>
 <body>
     
