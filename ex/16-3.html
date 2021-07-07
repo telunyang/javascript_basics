@@ -24,14 +24,13 @@
             return false;
         }
 
-        $.get('http://darreninfo.cc:5003/linesticker', {url: url}, function(data){
+        $.get('http://darreninfo.cc:5003/linesticker', {url: url}, function(obj){
+
             //取得 ul
             let ul = document.querySelector('ul#myList');
 
             //檢查回傳結果是否為物件型態
-            if(typeof(data) === "object"){
-                let obj = data;
-
+            if(typeof obj === "object"){
                 //回傳成功，則顯示貼圖在網頁上
                 if (obj['success']){
                     //將 objJson['results'] 裡面的結果，放置到
@@ -65,7 +64,7 @@
                 }
             } else {
                 //若非物件型態，便把資訊印在 console 面板來 debug
-                console.log(data);
+                console.log(obj);
             }
         });
     });

@@ -86,6 +86,71 @@ background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/31
         console.log(`圖片網址為: ${match04[0]}`);
         console.log(`圖片名稱為: ${match04[1]}`);
     }
+
+    /**
+     * string.split(re05)
+     * 以 re05 作為分割文字的字串或字元，轉為陣列型態
+     */
+    let str05 = `如何讓你遇見我
+
+在我最美麗的時刻
+
+為這
+
+我已在佛前 求了五百年
+
+求他讓我們結一段塵緣
+
+佛於是把我化作一棵樹
+
+長在你必經的路旁
+
+陽光下慎重地開滿了花
+
+朵朵都是我前世的盼望
+
+當你走近 請你細聽
+
+那顫抖的葉是我等待的熱情
+
+而當你終於無視地走過
+
+在你身後落了一地的
+
+朋友啊 那不是花瓣
+
+是我凋零的心
+
+——席慕蓉《一朵開花的樹》`;
+    //將文字以指定字元、字串或符號進行切割，建立陣列
+    let re05 = /\n|,|\.|，|。|！/;
+
+    //切割成陣列
+    arr05 = str05.split(re05);
+    
+    //移除陣列當中的空字串 (使用 delete)
+    for(let key in arr05){
+        //若是移除，當前 key 所代表的 value，會變成 undefined
+        if(arr05[key] == '') delete arr05[key];
+    }
+
+    /**
+     * 建立暫存空陣列 arrTmp，
+     * 將原先 arr05 的值照順序寫入 arrTmp，
+     * 之後再替換。
+     * 
+     * 備註: 
+     */
+    let arrTmp = [];
+    for(let value of arr05){
+        if(value != undefined) arrTmp.push(value);
+    }
+
+    //將整理好資料的 arrTmp，變成 arr
+    arr05 = arrTmp;
+
+    //顯示 arr 內容
+    console.log(arr05);
     </script>    
 </body>
 </html>
