@@ -23,20 +23,19 @@
             return false;
         }
 
-        var xhr = new XMLHttpRequest();
+        //建立 XMLHttpRequest 物件，來進行 ajax 非同步傳輸 
+        let xhr = new XMLHttpRequest();
         xhr.open('get','http://darreninfo.cc:5003/linesticker?url=' + url);
         xhr.send();
 
-        xhr.onloadstart = function(){
-            console.log('連線開始')
-        }
-
+        //連線結束後所觸發的事件 
         xhr.onloadend = function(){
             console.log('連線結束')
         }
 
+        //連線完成所觸發的事件 
         xhr.onload = function(){
-            console.log('連線中')
+            console.log('連線完成')
 
             //回傳字串型態(string)
             console.log(this.responseText);
