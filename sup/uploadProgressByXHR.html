@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 選擇上傳檔案的元素 -->
+    <h3>請選擇所要上傳的檔案</h3>
+    <input type="file" name="fileUpload[]" id="files" multiple />
+
+    <br> 
+
+    <progress id="p" value="0" max="100" style="width: 500px; height: 50px"></progress> 
+
+    <br> 
+    
+    <div id="msg"></div> 
+    
+    <script>
+    //選擇上傳檔案後的事件
+    document.querySelector('input#files').addEventListener('change', uploadFile);
+
+    //上傳檔案事件處理
+    function uploadFile(){
+        //取得 progress 物件 
+        let progressBar = document.querySelector('progress#p');
+
+        //選擇上傳的第一個檔案 (選擇多個檔案，在本案例中，只選擇第一個)
+        let myFile = document.querySelector('input#files').files[0]; 
+
+        //顯示上傳進度百分比訊息
+        let div = document.querySelector('div#msg'); 
+        
+        //建立 XMLHttpRequest 物件，來進行 ajax 非同步傳輸 
+        let xhr = new XMLHttpRequest(); 
+        xhr.open('post','https://httpbin.org/post'); 
+        xhr.setRequestHeader("Content-Type", "multipart/form-data"); 
+
+        //建立 FormData 物件，夾帶變數(或檔案)，搭配 xhr.send( formdata ) 送到後端頁面去處理 
+        let formdata = new FormData(); 
+        formdata.append("myFile", myFile);
+
+        //顯示當前上傳的進度 
+        xhr.upload.onprogress = function(event) { 
+            //計算上傳百分比 
+            let percent = (event.loaded / event.total) * 100; 
+            
+            //顯示在 div 的內文中 
+            div.innerHTML = percent + '%'; 
+            
+            //將目前上傳的進度，分別放到 progress 元素的屬性當中
+            progressBar.max = event.total; 
+            progressBar.value = event.loaded;
+        }; 
+        
+        //執行連線 
+        xhr.send(formdata);
+        
+        //連線完成所觸發的事件 
+        xhr.onload = function(){ console.log('連線完成'); } 
+        
+        //連線結束後所觸發的事件 
+        xhr.onloadend = function(event){ console.log('上傳結束'); }         
+    } 
+    </script>
+</body>
+</html>
