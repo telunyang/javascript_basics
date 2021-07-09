@@ -54,6 +54,33 @@
                 continue;
             }
 
+            /**
+             * 藉由 FileReader 物件，
+             * Web 應用程式能以非同步（asynchronously）方式讀取儲存在用戶端的檔案（或原始資料暫存）內容，
+             * 可以使用 File 或 Blob 物件指定要讀取的資料。
+             * 
+             * FileReader 有四個方法來讀取檔案資料：
+             *   readAsBinaryString(Blob|File)
+             *   readAsDataURL(Blob|File)
+             *   readAsText(Blob|File)
+             *   readAsArrayBuffer(Blob|File)
+             * 
+             * FileReader 在讀取檔案時，有幾個事件可用：
+             *  .onload()：
+             *     load 事件處理器，於讀取完成時觸發。
+             *  .onerror()：
+             *     error 事件處理器，於讀取發生錯誤時觸發。
+             *  .onprogress()：
+             *     progress 事件處理器，於讀取 Blob 內容時觸發。
+             *  .onloadstart()：
+             *     loadstart 事件處理器，於讀取開始時觸發。
+             *  .onloadend()：
+             *     loadend 事件處理器，於每一次讀取結束之後觸發（不論成功或失敗），
+             *     會於 onload 或 onerror 事件處理器之後才執行。
+             *  .onabort()：
+             *     abort 事件處理器，於讀取被中斷時觸發。
+             */
+
             //建立 FileReader 物件
             let reader = new FileReader();
 
