@@ -36,6 +36,9 @@
     function handleFileSelect(evt) {
         let files = evt.target.files; // FileList 物件
 
+        //取得 ul#myList 元素
+        let myList = document.querySelector('ul#myList');
+
         /**
          * File
          * {
@@ -89,9 +92,6 @@
 
             //.onload 代表「已讀取完成」的事件處理機制
             reader.onload = function(event) {
-                //取得 ul#myList 元素
-                let myList = document.querySelector('ul#myList');
-
                 //建立 li 元素，準備作為 ul#myList 當中的元素
                 let li = document.createElement('li');
 

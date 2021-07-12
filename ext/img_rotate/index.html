@@ -99,9 +99,9 @@
                         ul.appendChild(li);
                     }
 
-                    //使用 jQuery UI 和 rotatable plugin，使圖片透過滑鼠滾輪操作旋轉功能
-                    $('ul#myList li').each(function(index, element){
-                        $(element).draggable().rotatable({
+                    //使用 jQuery UI 和 rotatable plugin，透過滑鼠滾輪上下操作，來使圖片旋轉
+                    $('ul#myList li').each(function(){
+                        $(this).draggable().rotatable({
                             degrees: (Math.floor( Math.random() * 360) + 1)
                         });
                     });
