@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="myForm" 
+        action="" 
+        method="POST" 
+        enctype="multipart/form-data">
+        <!-- 補充: 不會夾帶檔案上傳時的設定 enctype="application/x-www-form-urlencoded" -->
+
+        <!-- 選擇上傳檔案的元素 -->
+        <h3>請選擇所要上傳的檔案</h3>
+        <input type="file" name="fileUpload[]" id="files" multiple />
+        
+    </form>
+
+    <!-- 模擬點擊選擇上傳檔案的元素 -->
+    <a href="#" id="selectFiles">選擇檔案</a>
+
+    <!-- 水平線 -->
+    <hr />
+
+    <!-- 放置多張圖片的元素容器 -->
+    <ul id="myList"></ul>
+
+    <!-- jQuery (有 Ajax 功能) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+    //監聽多選檔案之後的事件
+    document.querySelector('input#files').addEventListener('change', handleFileSelect);
+
+    //處理選擇檔案後的預覽事件(函式)
+    function handleFileSelect(evt) {
+        let files = evt.target.files; // FileList 物件
+
+        //取得 ul#myList 元素
+        let myList = document.querySelector('ul#myList');
+
+        /**
+         * File
+         * {
+         *     lastModified: 1625742821352
+         *     lastModifiedDate: Thu Jul 08 2021 19:13:41 GMT+0800 (台北標準時間) {}
+         *     name: "1625726805874.jpeg"
+         *     type: "image/jpeg"
+         *     webkitRelativePath: ""
+         * }
+         */
+
+        //個別走訪多重選擇的檔案
+        for(let file of files) {
+            // 僅處理 image/jpeg、image/png 等格式的圖片檔案
+            if (!file.type.match('^image')) {
+                continue;
+            }
+
+            /**
+             * 藉由 FileReader 物件，
+             * Web 應用程式能以非同步（asynchronously）方式讀取儲存在用戶端的檔案（或原始資料暫存）內容，
+             * 可以使用 File 或 Blob 物件指定要讀取的資料。
+             * 
+             * FileReader 有四個方法來讀取檔案資料：
+             *   readAsBinaryString(Blob|File)
+             *   readAsDataURL(Blob|File)
+             *   readAsText(Blob|File)
+             *   readAsArrayBuffer(Blob|File)
+             * 
+             * FileReader 在讀取檔案時，有幾個事件可用：
+             *  .onload()：
+             *     load 事件處理器，於讀取完成時觸發。
+             *  .onerror()：
+             *     error 事件處理器，於讀取發生錯誤時觸發。
+             *  .onprogress()：
+             *     progress 事件處理器，於讀取 Blob 內容時觸發。
+             *  .onloadstart()：
+             *     loadstart 事件處理器，於讀取開始時觸發。
+             *  .onloadend()：
+             *     loadend 事件處理器，於每一次讀取結束之後觸發（不論成功或失敗），
+             *     會於 onload 或 onerror 事件處理器之後才執行。
+             *  .onabort()：
+             *     abort 事件處理器，於讀取被中斷時觸發。
+             */
+
+            //建立 FileReader 物件
+            let reader = new FileReader();
+
+            //以 data URL 的格式來讀取圖檔
+            reader.readAsDataURL(file);
+
+            //.onload 代表「已讀取完成」的事件處理機制
+            reader.onload = function(event) {
+                //建立 li 元素，準備作為 ul#myList 當中的元素
+                let li = document.createElement('li');
+
+                /**
+                 * 透過陣列結合的方式，將各種陣列元素中的字串合併
+                 * 
+                 * 補充說明: 
+                 *     event.target.result 
+                 *     是圖片內容經過編碼後的結果(很長的字串)，可作為 src 屬性的值，
+                 *     除了實際的超連結路徑與檔案名稱(例如 xxx.jpg xxx.png)，
+                 *     也可以將輸出結果作為 src 屬性的值
+                 */
+                li.innerHTML = `<img class="thumb" src="${event.target.result}" title="${file.name}"/>`;
+
+                //新增 li 元素到 ul#myList 當中
+                myList.appendChild(li);
+            };
+
+            
+            /**
+             * 上傳圖片
+             */
+
+            //夾帶表單檔案
+            let formdata = new FormData();
+            formdata.append('fileUpload', file);
+
+            //用 ajax 上傳
+            let xhr = $.ajax({
+                method: "POST",
+                url: "http://localhost/php_iii_uiux/php/7-5-1.php",
+                contentType : false,
+                processData : false,
+                data: formdata
+            });
+            
+            //上傳成功的回傳訊息
+            xhr.done(function(obj){
+                console.log(obj);
+            });
+
+            //上傳失敗的回傳訊息
+            xhr.fail(function(error){
+                console.log(error);
+            });
+
+            //無論上傳成功與否，都會執行，類別 try catch finally 的 finally
+            xhr.always(function(){
+                console.log(`執行結束`);
+            });
+
+        }
+    }
+
+    //當 a#selectFiles 被點擊時，模擬 input#files 選擇檔案的流程
+    document.querySelector('a#selectFiles').addEventListener('click', function(event){
+        //讓預設事件不被觸發
+        event.preventDefault();
+
+        //模擬點擊選擇上傳檔案的按鈕
+        document.querySelector('input#files').click();
+    });
+    </script>
+</body>
+</html>
