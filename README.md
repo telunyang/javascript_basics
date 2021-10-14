@@ -1,5 +1,6 @@
 # javascript_iii_uiux
 資策會 UIUX 班 JavaScript 課程
+臺大計算機中心資訊課程 - JavaScript
 
 ## 上課影片播放列表
 [YouTube Playlist: MMMH61](https://www.youtube.com/playlist?list=PLV4FeK54eNbzDZLD50LFpkI3AZ4FJ-j8o "MMMH61")
