@@ -1,7 +1,16 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: *');
+header('Content-Type: application/json');
+
 $obj = [];
 $obj['success'] = false;
 $obj['info'] = '下載失敗'; 
+
+if( apache_request_headers()['Content-Type'] == 'application/json' ){
+    $_POST = json_decode(file_get_contents("php://input"), true);
+}
 
 if( isset($_POST['q']) && $_POST['q'] !== '' ){
     $headers = [
@@ -30,10 +39,5 @@ if( isset($_POST['q']) && $_POST['q'] !== '' ){
         $obj['link'] = "https://darreninfo.cc/tts/{$file_path}";
     }
 }
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-// header('Access-Control-Max-Age: 0');
-header('Content-Type: application/json');
 
 echo json_encode($obj, JSON_UNESCAPED_UNICODE);

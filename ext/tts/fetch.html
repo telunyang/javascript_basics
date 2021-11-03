@@ -50,15 +50,16 @@
         //指定第幾句作為首播(使用陣列索引格式，從 0 開始)
         let index = 0;
 
-        let txt = $('textarea#txt');
+        //文字欄位元素
+        let txt = document.querySelector('textarea#txt');
 
         //當我們貼上文章，將滑鼠游標焦點離開 textarea 的時候
         document.querySelector('textarea#txt').addEventListener('focusout', function(event){
             //取得 textarea 的內容
-            let content = document.querySelector('textarea#txt').value;
+            let content = txt.value;
 
             //將文字以指定字元、字串或符號進行切割，建立陣列
-            let regex = /\n|,|\.|，|。/;
+            let regex = /\n|,|\.|，|。|　/;
             arr = content.split(regex);
 
             //移除空字串
@@ -82,7 +83,33 @@
 
         //取得第幾句的聲音檔案，並加以播放
         function getAudio(idx){
-            $.post("https://darreninfo.cc/tts/sound.php", {q: arr[idx]}, function(objJson){
+            fetch("https://darreninfo.cc/tts/sound.php", {
+                //RESTful 方法，常見的有 GET, POST, PUT, DELETE
+                method: 'POST', 
+                //設定標頭: 指明使用者代理為桌面瀏覽器，同時傳遞的資料為 json 格式 
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                /**
+                 * 傳遞資料的方法若為 POST，需要先設定成物件({…})，
+                 * 以 body 作為 key/attr，
+                 * 最後轉成透過 JSON.stringify() 將物件字串化，才能正確執行
+                 * 
+                 * 參考連結: JavaScript Fetch API 使用教學
+                 * https://www.oxxostudio.tw/articles/201908/js-fetch.html
+                 */
+                body: JSON.stringify({
+                    q: arr[idx]
+                })
+            }).then(function(response){
+                /** 
+                * 回應的結構列表:
+                * response.json() : JSON 物件
+                * response.text() : 純文字
+                * response.blob() : 二進制檔案的內文，通常用在圖片的 base64 編碼
+                */
+                return response.json();
+            }).then(function(objJson){
                 if( objJson['success'] ){
                     //初始化 audio 元素
                     let audio = document.querySelector('audio#text_to_speech');
@@ -97,13 +124,15 @@
                     audio.play();
 
                     //反白(強調)文字
-                    txt.highlightWithinTextarea({
+                    $(txt).highlightWithinTextarea({
                         highlight: [{
                             highlight: arr[idx],
                             className: 'yellow'
                         }]
                     });
                 }
+            }).catch(function(error){
+                console.error(error);
             });
         }
 
