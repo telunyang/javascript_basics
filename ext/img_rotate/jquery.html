@@ -64,54 +64,47 @@
                 li.remove();
             });
 
-            //檢查回傳結果是否為物件型態
-            if(typeof obj === "object"){
-                //回傳成功，則顯示貼圖在網頁上
-                if (obj['success']){
-                    //將 objJson['results'] 裡面的結果，放置到
-                    for(let o of obj["results"]){
-                        //新增 li 元素，放置 img、a 等元素
-                        let li = document.createElement("li");
-                        
-                        //隨機提供座標
-                        li.style.position = "absolute";
-                        li.style.top = (Math.floor( Math.random() * 500) + 1) + "px";
-                        li.style.left = (Math.floor( Math.random() * 1200) + 1) + "px";
-
-                        //設定 style 屬性
-                        li.style.width = "150px";
-                        li.style.height = "150px";
-                        li.style.border = "1px solid";
-                        li.style.borderRadius = "10%";
-                        li.style.listStyle = "none";
-                        li.style.backgroundColor = "#ffffff";
-                        li.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
-                        
-                        //新增 img 元素，並指定 src 的值為貼圖連結
-                        let img = document.createElement("img");
-                        img.src = o["staticUrl"];
-                        img.style.width = "148px";
-
-                        //將 img 放到 li 當中
-                        li.appendChild(img);
-
-                        //將 li 放到 ul 當中
-                        ul.appendChild(li);
-                    }
-
-                    //使用 jQuery UI 和 rotatable plugin，透過滑鼠滾輪上下操作，來使圖片旋轉
-                    $('ul#myList li').each(function(){
-                        $(this).draggable().rotatable({
-                            degrees: (Math.floor( Math.random() * 360) + 1)
-                        });
-                    });
+            //回傳成功，則顯示貼圖在網頁上
+            if (obj['success']){
+                //將 objJson['results'] 裡面的結果，放置到
+                for(let o of obj["results"]){
+                    //新增 li 元素，放置 img、a 等元素
+                    let li = document.createElement("li");
                     
+                    //隨機提供座標
+                    li.style.position = "absolute";
+                    li.style.top = (Math.floor( Math.random() * 500) + 1) + "px";
+                    li.style.left = (Math.floor( Math.random() * 1200) + 1) + "px";
 
-                } else {
-                    alert('資料傳遞失敗');
+                    //設定 style 屬性
+                    li.style.width = "150px";
+                    li.style.height = "150px";
+                    li.style.border = "1px solid";
+                    li.style.borderRadius = "10%";
+                    li.style.listStyle = "none";
+                    li.style.backgroundColor = "#ffffff";
+                    li.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
+                    
+                    //新增 img 元素，並指定 src 的值為貼圖連結
+                    let img = document.createElement("img");
+                    img.src = o["staticUrl"];
+                    img.style.width = "148px";
+
+                    //將 img 放到 li 當中
+                    li.appendChild(img);
+
+                    //將 li 放到 ul 當中
+                    ul.appendChild(li);
                 }
+
+                //使用 rotatable plugin，透過滑鼠滾輪上下操作，來使圖片旋轉
+                $('ul#myList li').each(function(){
+                    $(this).draggable().rotatable({
+                        degrees: (Math.floor( Math.random() * 360) + 1)
+                    });
+                });
             } else {
-                //若非物件型態，便把資訊印在 console 面板來 debug
+                //若傳送失敗，便把回傳資訊輸出在 console 面板來 debug
                 console.log(obj);
             }
         });
