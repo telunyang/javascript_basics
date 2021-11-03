@@ -28,11 +28,17 @@
             method: 'GET', 
             //設定標頭: 指明使用者代理為桌面瀏覽器
             headers: { 
-                'user-agent': 'Mozilla/4.0 MDN Example'
+                'User-Agent': 'Mozilla/4.0 MDN Example'
             }
-            //傳遞資料的方法若為 POST，需要先設定成物件({…})，加上 body，
-            //最後轉成透過 JSON.stringify() 將物件字串化，才能正確執行
-            //body: JSON.stringify({})
+            /**
+             * 傳遞資料的方法若為 POST，需要先設定成物件({…})，
+             * 以 body 作為 key/attr，
+             * 最後轉成透過 JSON.stringify() 將物件字串化，才能正確執行
+             * 
+             * 參考連結: JavaScript Fetch API 使用教學
+             * https://www.oxxostudio.tw/articles/201908/js-fetch.html
+             */
+            //body: JSON.stringify({key: value})
         })
         .then(function(response) {
             /** 
