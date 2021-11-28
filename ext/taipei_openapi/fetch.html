@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, thead, th, tbody, tr, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn_request">取得臺北市咖啡廳列表</button>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>city</th>
+                <th>name</th>
+                <th>address</th>
+                <th>url</th>
+                <th>socket</th>
+                <th>latitude</th>
+                <th>longitude</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+    document.querySelector('button#btn_request').addEventListener('click', function(event){
+        fetch('https://darreninfo.cc/web_api_coffee.php',{
+            method: "GET"
+        }).then(function(response){ 
+            return response.json();
+        }).then(function(arr){
+            let tbody = document.querySelector('table > tbody');
+            // console.log(arr);
+            for(let o of arr){
+                let tr = document.createElement("tr");
+                tr.innerHTML = `<td>${o['id']}</td>
+                                <td>${o['city']}</td>
+                                <td>${o['name']}</td>
+                                <td>${o['address']}</td>
+                                <td><a href="${o['url']}" target="_blank">連結</a></td>
+                                <td>${o['socket']}</td>
+                                <td>${o['latitude']}</td>
+                                <td>${o['longitude']}</td>`;
+                tbody.appendChild(tr);
+            }
+        });
+    });
+    </script>
+</body>
+</html>
