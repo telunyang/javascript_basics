@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    //5 秒後印 001
+    setTimeout(function(){
+        console.log("001");
+    }, 5000);
+
+    //3 秒後印 002
+    setTimeout(function(){
+        console.log("002");
+    }, 3000);
+
+
+
+    
+    /**
+     * 透過 callback 流程，
+     * 讓輸出流程依序執行。
+     * 先印 001、再印 002。
+     */
+
+    //先執行外部 setTimeout()
+    setTimeout(function(){
+        //輸出 001
+        console.log("001");
+
+        //再執行內部 setTimeout()
+        setTimeout(function(){
+            //輸出 002
+            console.log("002");
+        }, 3000);
+        
+    }, 5000);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

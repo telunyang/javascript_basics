@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    new Promise(function(resolve, reject){
+        let number = 1;
+        setTimeout(function(){
+            console.log(number);
+            resolve(number);
+        }, 2000);
+    }).then((number) => {
+        number++;
+        let p2 = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                console.log(number);
+                resolve(number);
+            }, 2000);
+        });
+        return p2;
+    }).then((number) => {
+        number++;
+        let p3 = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                console.log(number);
+                resolve(number);
+            }, 2000);
+        });
+        return p3;
+    }).then((number) => {
+        number++;
+        let p4 = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                console.log(number);
+                resolve(number);
+            }, 2000);
+        });
+        return p4;
+    }).then((data) => {
+        console.log(`執行完畢`);
+    })
+    .catch((err) => {
+        console.log(err); //例外處理
+    });
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
