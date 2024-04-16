@@ -1,11 +1,10 @@
-# javascript_iii
-- 資策會（資展國際）JavaScript 課程
-- 臺大計算機中心資訊課程 - JavaScript
+# javascript_basics
+- JavaScript 課程 - 基礎篇
 
 ## 安裝工具
 請先安裝 Visual Studio Code，包括以下擴充功能（extensions）：
-- HTML Boilerplate
-- HTML Snippets
+- ~~HTML Boilerplate~~
+- ~~HTML Snippets~~
 - Live Server
 
 ## 目次
