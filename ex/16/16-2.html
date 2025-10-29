@@ -23,9 +23,10 @@
             return false;
         }
 
-        fetch('https://darreninfo.cc/linestickers.php?url=' + url, {
+        fetch('http://127.0.0.1:5000/linestickers?url=' + url, {
             //RESTful 方法，常見的有 GET, POST, PUT, DELETE
             method: 'GET', 
+            
             //設定標頭: 指明使用者代理為桌面瀏覽器
             headers: { 
                 'User-Agent': 'Mozilla/4.0 MDN Example'

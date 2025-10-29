@@ -25,6 +25,30 @@
     </style>
 </head>
 <body>
+<!--
+範例文章: 席慕蓉 - 一棵開花的樹
+資料來源: https://vocus.cc/article/600160c6fd8978000154131e
+請複製以下內容到文字欄位中:
+
+如何讓你遇見我
+在我最美麗的時刻　為這
+我已在佛前　求了五百年
+求他讓我們結一段塵緣
+
+佛於是把我化作一棵樹
+長在你必經的路旁
+陽光下慎重地開滿了花
+朵朵都是我前世的盼望
+
+當你走近　請你細聽
+那顫抖的葉是我等待的熱情
+而當你終於無視地走過
+在你身後落了一地的
+朋友啊　那不是花瓣
+是我凋零的心
+-->
+
+
     <!-- https://www.w3schools.com/tags/ref_av_dom.asp -->
     <audio id="text_to_speech" controls autoplay>
         <source src="" type="audio/mpeg">
@@ -83,9 +107,10 @@
 
         //取得第幾句的聲音檔案，並加以播放
         function getAudio(idx){
-            fetch("https://darreninfo.cc/tts/sound.php", {
+            fetch("http://127.0.0.1:5000/tts", {
                 //RESTful 方法，常見的有 GET, POST, PUT, DELETE
                 method: 'POST', 
+                
                 //設定標頭: 指明使用者代理為桌面瀏覽器，同時傳遞的資料為 json 格式 
                 headers: { 
                     'Content-Type': 'application/json'

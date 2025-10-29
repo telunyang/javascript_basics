@@ -50,13 +50,14 @@
         }
 
         //Web API
-        fetch('https://darreninfo.cc/linestickers.php?url=' + url, {
+        fetch('http://127.0.0.1:5000/linestickers?url=' + url, {
             //RESTful 方法，常見的有 GET, POST, PUT, DELETE
             method: 'GET', 
+
             //設定標頭: 指明使用者代理為桌面瀏覽器
             headers: { 
                 'User-Agent': 'Mozilla/4.0 MDN Example'
-            }
+            },
             /**
              * 傳遞資料的方法若為 POST，需要先設定成物件({…})，
              * 以 body 作為 key/attr，
@@ -75,6 +76,8 @@
             */
             return response.json();
         }).then(function(objJson){
+            console.log(objJson);
+                
             //取得 ul#myList
             let ul = document.querySelector('ul#myList');
 
