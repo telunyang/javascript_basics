@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformers.js CDN — WebGPU→WASM 自動回退</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+        }
+
+        button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        pre {
+            background: #f6f8fa;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto;
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Transformers.js</h1>
+    <div class="row">
+        <span class="badge" id="backend">偵測裝置中 ...</span>
+    </div>
+
+    <label for="text">輸入文字（情緒分析 demo）</label>
+    <textarea id="text">I love Transformers.js running fully in the browser!</textarea>
+
+    <div class="row">
+        <button id="run">執行推論</button>
+        <span id="status">準備就緒。</span>
+    </div>
+
+    <h3>Output</h3>
+    <pre id="out">[空白]</pre>
+
+    <!-- type="module" 代表這段 script 會在瀏覽器中以模組方式執行 -->
+    <script type="module">
+        // 從 CDN 載入 transformers.js 的 pipeline 函式
+        import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.6';
+
+        // 取得頁面元素
+        const status = document.getElementById('status');
+        const backend = document.getElementById('backend');
+        const out = document.getElementById('out');
+        const btn = document.getElementById('run');
+        const text = document.getElementById('text');
+
+        // WebGPU 可用性檢查：不只看 navigator.gpu，還實際 requestAdapter
+        async function canUseWebGPU() {
+            if (!('gpu' in navigator)) return false;
+            try {
+                const adapter = await navigator.gpu.requestAdapter();
+                return !!adapter; // !! 代表轉成布林值
+            } catch {
+                return false;
+            }
+        }
+
+        // 嘗試建立 pipeline：先 WebGPU，失敗自動回退到 WASM
+        async function loadPipeline() {
+            status.innerText = '檢測裝置中 ...';
+            let device = 'wasm';
+            if (await canUseWebGPU()) {
+                device = 'webgpu';
+            }
+
+            // 顯示目前使用的裝置
+            backend.innerText = `使用裝置: ${device.toUpperCase()}`;
+            status.innerText = `載入模型到 ${device.toUpperCase()} ... (第一次載入可能較慢，請稍候)`;
+
+            /**
+             * 模型列表
+             * https://huggingface.co/Xenova/models
+             * 
+             * 範例使用:
+             * Xenova/distilbert-base-uncased-finetuned-sst-2-english
+             * 
+             * 其他參考模型:
+             * Xenova/bert-base-multilingual-uncased-sentiment
+            */
+
+            // 載入模型
+            const pipe = await pipeline(
+                'text-classification',
+                'Xenova/bert-base-multilingual-uncased-sentiment',
+                { device: device, dtype: "q8", }
+            );
+
+            // 更新狀態
+            backend.innerText = `使用: ${device.toUpperCase()}`;
+            status.innerText = '模型已載入。';
+
+            return pipe;
+        }
+
+        // 頁面載入時就開始載入模型
+        const sentiment = await loadPipeline();
+
+        // 按下按鈕時執行推論
+        btn.addEventListener('click', async () => {
+            try {
+                // 剛開始按鈕就鎖住，避免重複點擊
+                btn.disabled = true;
+                status.innerText = '執行推論中 ... 請稍候 ...';
+
+                // 取得使用者輸入的文字
+                const input = text.value.trim();
+
+                // 如果沒有輸入文字就跳過
+                if (!input) {
+                    out.innerText = '(尚未輸入文字)';
+                    status.innerText = '準備就緒。';
+                    btn.disabled = false;
+                    return;
+                }
+
+                // 執行推論
+                const result = await sentiment(input);
+
+                // 將結果輸出到控制台 (除錯用)
+                console.log(result);
+                console.log(typeof result);
+
+                // 將推論結果顯示在頁面上
+                out.innerText = JSON.stringify(result, null, 4);
+                status.innerText = '完成。';
+            } catch (err) {
+                // 發生錯誤時顯示錯誤訊息
+                console.error(err);
+                out.innerText = `錯誤: ${err?.message || err}`;
+                status.innerText = '錯誤。';
+            } finally {
+                // 無論成功或失敗都要解鎖按鈕
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
